@@ -123,6 +123,7 @@ var tracker = {
         console.table( allProducts );
     }
 };
+//chart copy
 
 
 
