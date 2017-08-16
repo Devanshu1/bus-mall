@@ -75,6 +75,8 @@ var tracker = {
         return selectedIndices; 
     },
 
+
+
     displayOptions: function () {
         
         var randomProductsIndex = this.getIndices( allProducts ); 
@@ -145,3 +147,24 @@ function voteHandler (e) {
 
 addProducts();
 tracker.displayOptions();
+
+
+var chartCanvas = document.getElementById( 'myChart' ).getContext('2d');
+var voteChart = new Chart ( chartCanvas, {
+
+    type: 'bar', 
+    data: {
+        labels: ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'Dragon', 'Pet sweep','Scissors', 
+    'shark', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'  ],
+    
+    datasets: [{
+        label: '# of votes',
+        data: [ ]
+   
+    }]
+
+    }
+        
+        
+    
+})
