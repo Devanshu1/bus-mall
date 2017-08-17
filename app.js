@@ -77,6 +77,10 @@ var tracker = {
         return selectedIndices; 
     },
 
+    //local storage 
+
+    
+    
 
 
     displayOptions: function () {
@@ -109,7 +113,7 @@ var tracker = {
         
     },
 
-    tallyVote: function ( target ) {
+     tallyVote: function ( target ) {
         this.votes += 1;
 
        
