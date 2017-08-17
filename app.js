@@ -3,7 +3,9 @@
 
 var allProducts = [];
 
+var clickCount= 0;
 
+var clicked= [];
 
 function Product ( name, id ) {
     this.name = name;
@@ -114,7 +116,7 @@ var tracker = {
         var selectRest = allProducts[target.getAttribute( 'data-index')];
         selectRest.votes++;
 
-        if ( this.votes > 4 ) {
+        if ( this.votes > 25 ) {
             this.showResults();
         }
     },
@@ -122,7 +124,8 @@ var tracker = {
     showResults: function () {
        
         this.displaySection.removeEventListener( 'click', voteHandler );
-        console.table( allProducts );
+        showTable();
+        // console.table( allProducts );
     }
 };
 //chart copy
@@ -134,12 +137,16 @@ display.addEventListener( 'click', voteHandler, true );
 
 function voteHandler (e) {
 
-    tracker.tallyVote( e.target );
-    tracker.displayOptions();
+    
+        tracker.tallyVote( e.target ); 
+        tracker.displayOptions();
+
+    
     // console.log( this.id + ' is listening; ' + e.target.id + ' was clicked' );
     // event.preventDefault();
     // event.target is what was clicked
 }
+
 
 // voteHandler();
 
@@ -148,7 +155,15 @@ function voteHandler (e) {
 addProducts();
 tracker.displayOptions();
 
+function pushClicks () {
+for ( var i = 0; i < allProducts.length; i++) {
+    clicked.push(allProducts[i].votes);
 
+}}
+console.log(clicked)
+// console.log(allProducts)
+function showTable () {
+pushClicks();
 var chartCanvas = document.getElementById( 'myChart' ).getContext('2d');
 var voteChart = new Chart ( chartCanvas, {
 
@@ -159,12 +174,14 @@ var voteChart = new Chart ( chartCanvas, {
     
     datasets: [{
         label: '# of votes',
-        data: [ ]
-   
-    }]
+       
+        data: clicked
+    }],
 
     }
         
         
     
 })
+
+}
