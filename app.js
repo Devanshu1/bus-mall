@@ -1,12 +1,17 @@
 'use strict';
 
 
-var allProducts = [];
 
 var clickCount= 0;
 
 var clicked= [];
-
+if (localStorage.product ) {
+    allProducts = fromLs('products')
+} else {
+    var allProducts = [];
+    addProducts();
+} 
+console.log(allProducts)
 function Product ( name, id ) {
     this.name = name;
     this.id = id;
@@ -79,8 +84,7 @@ var tracker = {
 
     //local storage 
 
-    
-    
+   
 
 
     displayOptions: function () {
@@ -113,6 +117,7 @@ var tracker = {
         
     },
 
+
      tallyVote: function ( target ) {
         this.votes += 1;
 
@@ -134,7 +139,14 @@ var tracker = {
 };
 //chart copy
 
+ function toLs( key, value ) {
+        var str = JSON.stringify( value );
+        localStorage.setItem( key, str );
+     }
 
+    function fromLs ( key ) {
+    return JSON.parse( localStorage.getItem( key ) );
+    }
 
 var display = document.getElementById( 'display' );
 display.addEventListener( 'click', voteHandler, true );
@@ -156,7 +168,7 @@ function voteHandler (e) {
 
 //****INITIALIZE APP****//
 
-addProducts();
+
 tracker.displayOptions();
 
 function pushClicks () {
@@ -167,9 +179,10 @@ for ( var i = 0; i < allProducts.length; i++) {
 console.log(clicked)
 // console.log(allProducts)
 function showTable () {
-pushClicks();
-var chartCanvas = document.getElementById( 'myChart' ).getContext('2d');
-var voteChart = new Chart ( chartCanvas, {
+    toLs('products' , allProducts); 
+    pushClicks();
+    var chartCanvas = document.getElementById( 'myChart' ).getContext('2d');
+    var voteChart = new Chart ( chartCanvas, {
 
     type: 'bar', 
     data: {
