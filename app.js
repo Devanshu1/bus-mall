@@ -89,7 +89,7 @@ var tracker = {
 
     displayOptions: function () {
         
-        var randomProductsIndex = this.getIndices( allProducts ); 
+        var randomProducts  Index = this.getIndices( allProducts ); 
         
 
          
