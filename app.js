@@ -3,7 +3,6 @@
 
 
 var clickCount= 0;
-
 var clicked= [];
 if (localStorage.product ) {
     allProducts = fromLs('products')
@@ -11,7 +10,7 @@ if (localStorage.product ) {
     var allProducts = [];
     addProducts();
 } 
-console.log(allProducts)
+console.log(allProducts);
 function Product ( name, id ) {
     this.name = name;
     this.id = id;
@@ -60,17 +59,17 @@ var tracker = {
         
         // document.canvas.src = allProducts[tracker]
         var createSet = function () {
-     // give an array of randomImages with no duplicates
-    var images = [];
-     do {
-         var imgPath = randomImage();
-         if ( !images.includes( imgPath ) ) { // does this random image exist in the images array
-             images.push( imgPath );
-         }
-     } while ( images.length < 6 );
- 
-     return images; // ['images/water.', 'images/wine.', 'images/unicorn'];
- }
+            // give an array of randomImages with no duplicates
+            var images = [];
+            do {
+                var imgPath = randomImage();
+                if ( !images.includes( imgPath ) ) { // does this random image exist in the images array
+                    images.push( imgPath );
+                }
+            } while ( images.length < 6 );
+    
+            return images; // ['images/water.', 'images/wine.', 'images/unicorn'];
+        };/** check if ";"" is needed -devanshu */
         do {
             var indexNum = this.randomIndex( arr );
 
@@ -89,14 +88,12 @@ var tracker = {
 
     displayOptions: function () {
         
-        var randomProducts  Index = this.getIndices( allProducts ); 
-        
+        var randomProducts = this.getIndices( allProducts ); 
+    
+        var index1 = randomProducts[0];
+        var index2 = randomProducts[1];
+        var index3 = randomProducts[2];
 
-         
-        var index1 = randomProductsIndex[0]; 
-        var index2 = randomProductsIndex[1]; 
-        var index3 = randomProductsIndex[2]; 
-        
         var product1 = allProducts[index1]; 
         var product2 = allProducts[index2]; 
         var product3 = allProducts[index3];
@@ -118,7 +115,7 @@ var tracker = {
     },
 
 
-     tallyVote: function ( target ) {
+    tallyVote: function ( target ) {
         this.votes += 1;
 
        
@@ -139,24 +136,22 @@ var tracker = {
 };
 //chart copy
 
- function toLs( key, value ) {
+function toLs( key, value ) {
         var str = JSON.stringify( value );
         localStorage.setItem( key, str );
-     }
+}
 
-    function fromLs ( key ) {
+function fromLs ( key ) {
     return JSON.parse( localStorage.getItem( key ) );
-    }
+}
 
 var display = document.getElementById( 'display' );
 display.addEventListener( 'click', voteHandler, true );
 
 function voteHandler (e) {
-
     
         tracker.tallyVote( e.target ); 
         tracker.displayOptions();
-
     
     // console.log( this.id + ' is listening; ' + e.target.id + ' was clicked' );
     // event.preventDefault();
@@ -172,11 +167,12 @@ function voteHandler (e) {
 tracker.displayOptions();
 
 function pushClicks () {
-for ( var i = 0; i < allProducts.length; i++) {
-    clicked.push(allProducts[i].votes);
+    for ( var i = 0; i < allProducts.length; i++) {
+        clicked.push(allProducts[i].votes);
+    }
+}
 
-}}
-console.log(clicked)
+console.log(clicked);
 // console.log(allProducts)
 function showTable () {
     toLs('products' , allProducts); 
@@ -184,21 +180,16 @@ function showTable () {
     var chartCanvas = document.getElementById( 'myChart' ).getContext('2d');
     var voteChart = new Chart ( chartCanvas, {
 
-    type: 'bar', 
-    data: {
-        labels: ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'Dragon', 'Pet sweep','Scissors', 
-    'shark', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'  ],
-    
-    datasets: [{
-        label: '# of votes',
-       
-        data: clicked
-    }],
-
-    }
-        
-        
-    
-})
-
+        type: 'bar', 
+        data: {
+            labels: ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 
+                        'dog-duck', 'Dragon', 'Pet sweep','Scissors', 
+                        'shark', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'  ],
+      
+            datasets: [{
+                label: '# of votes',
+                data: clicked
+            }],
+        }
+    })
 }
